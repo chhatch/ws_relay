@@ -2,16 +2,19 @@ import { createWebSocketStream, WebSocket } from "ws";
 import express from "express";
 
 const app = express();
+app.use(express.json());
 
 const port = process.argv[2] || 3000;
 
 app.post("/", (req, res) => {
+  const address = req.body.address;
+
+  console.log(`Received request with address: ${address}`);
+
   const results = [];
   let errorMessage = null;
 
-  const ws = new WebSocket(address, {
-    headers: { Authorization: authToken },
-  });
+  const ws = new WebSocket(address);
 
   ws.on("error", (error) => {
     console.log(error);
