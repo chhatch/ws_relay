@@ -35,8 +35,9 @@ app.post("/", (req, res) => {
   });
 
   ws.on("message", (data) => {
-    console.log("Received data:", data);
-    results.push(data);
+    const jsonData = JSON.parse(data.toString());
+    console.log("Received data:", jsonData);
+    results.push(jsonData);
   });
 });
 
